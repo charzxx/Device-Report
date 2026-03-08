@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SayBox</title>
+</head>
+
+<body style="text-align:center; font-family:'Segoe UI', Tahoma, sans-serif;">
+
+<h1>Welcome to SayBox!</h1>
+
+<p>
+Saybox is a search platform with multiple features being released faster than typing Saybox 100 times!
+We are currently in early development, but we have a lot of features planned for the future.
+</p>
+
+<p>You can go on to search for whatever you're looking for!</p>
+
+<input
+    id="searchBox"
+    type="text"
+    placeholder="Search SayBox..."
+    style="
+        width:320px;
+        height:28px;
+        font-size:16px;
+        padding:4px;
+        border-radius:6px;
+        border:1px solid #ccc;
+        outline:none;
+    "
+    onkeydown="search(event)"
+>
+
+<script>
+function search(event) {
+
+    if (event.key === "Enter") {
+
+        let query = document.getElementById("searchBox").value;
+
+        if (query.trim() !== "") {
+
+            let url = "https://www.google.com/search?q=" + encodeURIComponent(query);
+
+            window.location.href = url;
+        }
+    }
+}
+</script>
+
+</body>
+</html>
