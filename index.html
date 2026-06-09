@@ -1,51 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title>SayBox</title>
+    <title>Device Report</title>
 </head>
+<body>
 
-<body style="text-align:center; font-family:'Segoe UI', Tahoma, sans-serif;">
-
-<h1>Welcome to SayBox!</h1>
-
-<p>
-Saybox is a search platform with multiple features being released faster than typing Saybox 100 times!
-We are currently in early development, but we have a lot of features planned for the future.
-</p>
-
-<p>You can go on to search for whatever you're looking for!</p>
-
-<input
-    id="searchBox"
-    type="text"
-    placeholder="Search SayBox..."
-    style="
-        width:320px;
-        height:28px;
-        font-size:16px;
-        padding:4px;
-        border-radius:6px;
-        border:1px solid #ccc;
-        outline:none;
-    "
-    onkeydown="search(event)"
->
+<h1>Device Report</h1>
+<div id="report"></div>
 
 <script>
-function search(event) {
-
-    if (event.key === "Enter") {
-
-        let query = document.getElementById("searchBox").value;
-
-        if (query.trim() !== "") {
-
-            let url = "https://www.google.com/search?q=" + encodeURIComponent(query);
-
-            window.location.href = url;
-        }
-    }
+function add(label, value) {
+    return `<b>${label}:</b> ${value ?? "N/A"}<br>`;
 }
+
+const nav = navigator;
+const scr = screen;
+const con = navigator.connection || {};
+
+const report = `
+${add("Browser", nav.userAgent)}
+${add("Platform", nav.platform)}
+${add("Vendor", nav.vendor)}
+${add("Language", nav.language)}
+${add("Languages", (nav.languages || []).join(", "))}
+
+<hr>
+
+${add("Screen Width", scr.width + "px")}
+${add("Screen Height", scr.height + "px")}
+${add("Avail Width", scr.availWidth + "px")}
+${add("Avail Height", scr.availHeight + "px")}
+${add("Color Depth", scr.colorDepth)}
+
+<hr>
+
+${add("Window Inner Width", window.innerWidth + "px")}
+${add("Window Inner Height", window.innerHeight + "px")}
+${add("Device Pixel Ratio", window.devicePixelRatio)}
+
+<hr>
+
+${add("CPU Cores", nav.hardwareConcurrency)}
+${add("Memory (approx GB)", nav.deviceMemory)}
+${add("Touch Points", nav.maxTouchPoints)}
+
+<hr>
+
+${add("Online", nav.onLine)}
+${add("Cookie Enabled", nav.cookieEnabled)}
+
+<hr>
+
+${add("Timezone", Intl.DateTimeFormat().resolvedOptions().timeZone)}
+${add("Timezone Offset", new Date().getTimezoneOffset())}
+
+<hr>
+
+${add("URL", location.href)}
+${add("Hostname", location.hostname)}
+${add("Path", location.pathname)}
+${add("Protocol", location.protocol)}
+
+<hr>
+
+${add("History Length", history.length)}
+
+<hr>
+
+${add("Connection Type", con.effectiveType)}
+${add("Downlink (Mbps)", con.downlink)}
+${add("RTT (ms)", con.rtt)}
+${add("Save Data", con.saveData)}
+
+<hr>
+
+${add("Document Title", document.title)}
+${add("Document Charset", document.characterSet)}
+${add("Visibility State", document.visibilityState)}
+
+`;
+
+document.getElementById("report").innerHTML = report;
 </script>
 
 </body>
