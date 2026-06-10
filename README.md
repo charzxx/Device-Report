@@ -4,4 +4,4 @@ This is a pretty simple project that became a personal website, but I decided to
 
 FAQ:
 How does this work?
-It goes through browser objects like: "navigator, screen, window, location, history," to grab all the data that is in your screen. Pure JavaScript.
+It goes through browser objects like: "navigator, screen, window, location, history," to grab device and browser information available through JavaScript APIs. Pure JavaScript.
